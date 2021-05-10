@@ -1,0 +1,18 @@
+(defun read-lines (filename)
+   (with-open-file (stream filename)
+     (do ((line (read-line stream nil) (read-line stream nil))
+          (lines nil (cons line lines)))
+       ((null line) (reverse lines)))))
+
+(defun read-records (filename)
+  (with-open-file (stream filename)
+    (let ((buf (make-array 32 :element-type 'character)))
+      (do ((record (read-sequence buf stream) (read-sequence buf stream))
+           (records nil (cons (string-trim " " buf) records)))
+        ((zerop record) (reverse records))))))
+
+(defun write-records (records filename)
+  (with-open-file (stream filename :direction :output)
+    (do ((ls records (cdr ls)))
+      ((null ls) nil)
+      (format stream "~32A" (car ls)))))
