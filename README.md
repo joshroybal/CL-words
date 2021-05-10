@@ -1,2 +1,2 @@
 # CL-words
-Common Lisp binary and text file I/O tests using unix words file.
+Common Lisp direct access and text file I/O tests using unix words file.
